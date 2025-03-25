@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const createUser = async (req, res) => {
+    console.log(req.body)
 const { first_name, last_name, email, password } = req.body;
 try {
     const emailVerification = await User.findOne({ email });
@@ -18,8 +19,8 @@ try {
     first_name,
     last_name,
     email,
-    password: hashedPassword,
-    });
+    password: hashedPassword
+    })
 
     newUser.save();
     return res.status(201).json(`Welcom to our event manager ${first_name}`);

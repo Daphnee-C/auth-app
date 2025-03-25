@@ -4,20 +4,22 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 export const verifyUser = async (req, res, next) => {
   // console.log(`Middleware to verify if the user is logged in`)
-const token = req.headers.authorization?.split(" ")[1];
-if (!token) {
-    return res.status(405).json(`Access refused : token needed`);
-}
-
-try {
-    const verify = await jwt.verify(token, JWT_SECRET);
-    if (!verify) {
-    return res.status(405).json(`Access refused : wrong token`);
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+        return res.status(405).json(`Access refused : token needed`);
     }
-    req.user = verify;
-    next();
-} catch (err) {
-    console.log(err);
-    return res.status(500).json(`Internal server error`, err);
+    try {
+        const decoded = await jwt.verify(token, JWT_SECRET)
+        req.user = decoded
+        next()
+    }
+    catch (error) {
+        if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(403).json({ error: "Invalid token : incorrect signature" });
+        }
+        if (error instanceof jwt.TokenExpiredError) {
+            return res.status(403).json({ error: "Token expired, please login again" });
+        }
+        return res.status(500).json({ error: "Error while verifating the token" });
+    }
 }
-};
