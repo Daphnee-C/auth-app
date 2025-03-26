@@ -6,11 +6,11 @@ import { ServicesController } from './context/servicesContext.jsx'
 import { AuthController } from './context/authContext'
 
 createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
   <ServicesController>
     <AuthController>
-      <BrowserRouter>
         <MyRouter />
-      </BrowserRouter>,
     </AuthController>
   </ServicesController>
+  </BrowserRouter>
 )

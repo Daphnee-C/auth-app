@@ -122,7 +122,7 @@ const Register = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-red-300 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-green-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md bg-pink-300 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-pink-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Register
                             </button>
@@ -131,7 +131,7 @@ const Register = () => {
 
                     <p className="mt-10 text-center text-sm/6 text-gray-500">
                         Already a member?{' '}
-                        <a href="#" className="font-semibold text-red-300 hover:text-red-300">
+                        <a href="/login" className="font-semibold text-pink-600 hover:text-red-300">
                             Please sign in
                         </a>
                     </p>

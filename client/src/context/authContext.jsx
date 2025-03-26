@@ -1,15 +1,36 @@
 import {useState, createContext} from 'react'
-
+import axios from 'axios'
+import {useNavigate} from 'react-router'
 export const AuthContext = createContext(null)
 
 export const AuthController = ({children}) => {
 
-   const [isAuthenticated, setIsAuthenticated] = useState(false)
+    let navigate = useNavigate()
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    const handleLogin = async (e, email, password) => {
+        e.preventDefault()
+        
+        try {
+            const response = await axios.post(`http://localhost:8000/api/login`, {email, password})
+            if(response.status === 200){
+                localStorage.setItem('token', response.data.token)
+                alert(response.data.message)
+                navigate('/')
+                setIsAuthenticated (true)
+            }
+            
+        } 
+        catch (err) {
+            console.log(err)
+            alert(err.response.data.message)
+        }
+    }
 
 
-   return(
-       <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
-           {children}
-       </AuthContext.Provider>
-   )
+    return(
+        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, handleLogin}}>
+            {children}
+        </AuthContext.Provider>
+    )
 }

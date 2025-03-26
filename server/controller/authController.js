@@ -32,19 +32,20 @@ try {
 
 export const loginUser = async (req, res) => {
 const { email, password } = req.body;
+console.log(req.body)
 
 try {
     const user = await User.findOne({ email });
     if (!user) {
-    return res.status(404).json({ message: "Email or password invalid." });
+    return res.status(401).json({ message: "Email or password invalid." });
     }
 
     const comparePassword = await bcrypt.compare(password, user.password);
     if (!comparePassword) {
-    return res.status(404).json({ message: "Email or password invalid." });
+    return res.status(401).json({ message: "Email or password invalid." });
     }
     const token = jwt.sign({ id: user._id }, JWT_SECRET);
-    return res.status(200).json(token);
+    return res.status(200).json({message : `Welcome ${user.first_name}`, token});
 } catch (err) {
     console.log(err);
     return res.status(500).json(`Internal server error`, err);

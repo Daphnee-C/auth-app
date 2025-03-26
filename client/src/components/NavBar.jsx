@@ -5,72 +5,57 @@ import { AuthContext } from "../context/authContext.jsx";
 
 const NavBar = () => {
   const [services] = useContext(ServicesContext);
-  const [isAuthenticated] = useContext(AuthContext);
+  const {isAuthenticated} = useContext(AuthContext);
 
-  return (
+    return (
     <nav className="bg-pink-200 shadow-md py-4 px-6 rounded-b-3xl">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-extrabold text-gray-800">
-          🎭 EventApp
+            🎭 EventApp
         </Link>
 
         <p className="text-gray-700 font-semibold">
-          📅 {services.length} events disponibles
+            📅 {services.length} events disponibles
         </p>
 
         <ul className="flex space-x-6">
-          <li>
-            <Link
-              to="/"
-              className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
-            >
-              🏠 Home
-            </Link>
-          </li>
+            <li>
+                <Link to="/" className="text-gray-800 font-semibold hover:text-white transition duration-300">
+                    🏠 Home
+                </Link>
+            </li>
 
-          {!isAuthenticated ? (
+        {!isAuthenticated ? (
             <>
-              <li>
-                <Link
-                  to="/register"
-                  className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
-                >
-                  ✨ Register
+            <li>
+                <Link to="/register" className="text-gray-800 font-semibold hover:text-white transition duration-300">
+                    ✨ Register
                 </Link>
-              </li>
-              <li>
-                <Link
-                  to="/login"
-                  className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
-                >
-                  🔑 Login
+            </li>
+            <li>
+                <Link to="/login" className="text-gray-800 font-semibold hover:text-white transition duration-300">
+                    🔑 Login
                 </Link>
-              </li>
+            </li>
             </>
-          ) : (
+            ) : (
             <>
-              <li>
-                <Link
-                  to="/profile"
-                  className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
-                >
-                  👤 Profile
+            <li>
+                <Link to="/profile" className="text-gray-800 font-semibold hover:text-white transition duration-300">
+                    👤 Profile
                 </Link>
-              </li>
-              <li>
-                <Link
-                  to="/logout"
-                  className="text-gray-800 font-semibold hover:text-red-500 transition duration-300"
-                >
-                  🚪 Logout
+            </li>
+            <li>
+                <Link to="/logout" className="text-gray-800 font-semibold hover:text-red-500 transition duration-300">
+                    🚪 Logout
                 </Link>
-              </li>
+            </li>
             </>
-          )}
-        </ul>
-      </div>
+        )}
+            </ul>
+        </div>
     </nav>
-  );
-};
+    )
+}
 
 export default NavBar;
