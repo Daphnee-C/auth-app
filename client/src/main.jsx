@@ -1,12 +1,16 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import MyRouter from './MyRouter'
 import './index.css'
-import App from './App.jsx'
+import MyRouter from './MyRouter'
 import { BrowserRouter } from 'react-router'
+import { ServicesController } from './context/servicesContext.jsx'
+import { AuthController } from './context/authContext'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <MyRouter/>
-  </BrowserRouter>,
+  <ServicesController>
+    <AuthController>
+      <BrowserRouter>
+        <MyRouter />
+      </BrowserRouter>,
+    </AuthController>
+  </ServicesController>
 )

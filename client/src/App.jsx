@@ -1,59 +1,36 @@
 import './App.css'
-import axios from 'axios'
-import {useState, useEffect} from 'react'
-
+import {useContext } from 'react'
+import { ServicesContext } from './context/servicesContext.jsx'
 function App() {
-  const [services, setServices] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
 
-  const fetchServices = async () => {
-    try{
-        const response = await axios.get(`http://localhost:8000/api/services`)
-        if(response.status === 200 ){
-          setServices(response.data)
-        }
-    }
-    catch(err){
-      console.log(err)
-    }
-    finally{
-      setLoading(false)
-    }
-  }
+  const [services, setServices] = useContext(ServicesContext)
 
-  useEffect(() => {
-    fetchServices()
-  }, [])
 
-console.log(services)
+  return (
+    <>
 
-return (
-  <div className="min-h-screen bg-gray-100 py-10">
-    <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">🔥 Welcome to My Event App 🔥</h1>
-    
-    <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {services && !loading ? (
-        services.map(service => (
-          <div key={service.id} className="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-gray-800">{service.title}</h2>
-              <p className="text-gray-600 mt-2">{service.description}</p>
-              <p className="mt-4 text-lg font-bold text-red-300">{service.price}€</p>
-              <p className="text-sm text-gray-500 mt-1">{service.adress}</p>
+
+      <h1 className="text-4xl font-extrabold text-gray-800 text-center py-6 bg-pink-100 shadow-md rounded-lg">Hello welcome to my event APP</h1>
+      <div className='flex flex-wrap justify-center gap-6 p-6'>
+      {services && services.map(service => {
+        return ( 
+            <div key={service._id} className="max-w-xs bg-gray-100 rounded-3xl shadow-lg border border-gray-200 p-5 transform hover:scale-105 transition duration-300">
+              <h3 className="text-xl font-bold text-gray-800 mb-2">🎉 {service.title}</h3>
+              <p className="text-gray-600 mb-2">📌 <span className="font-semibold">Category:</span>{service.category}</p>
+              <p className="text-gray-700 mb-3">📖 <span className="font-semibold">Description:</span>{service.description}</p>
+              <p className="text-green-600 font-bold mb-2">💰 Price: {service.price}</p>
+              <p className="text-gray-500">📍 Address: {service.adress}</p>
+
+              <button className="w-full bg-pink-100 text-gray-800 font-bold py-2 rounded-xl shadow-md hover:bg-pink-300 hover:text-white transition duration-300">
+                Book Now
+              </button>
             </div>
-            <div className="bg-red-300 text-white text-center py-2 font-semibold">
-              {service.availability ? "Disponible" : "Indisponible"}
-            </div>
-          </div>
-        ))
-      ) : (
-        <p className="text-center text-gray-600">Chargement des services...</p>
-      )}
-    </div>
-  </div>
-);
-
+          
+        )
+      })}
+      </div>
+    </>
+  )
 }
 
 export default App

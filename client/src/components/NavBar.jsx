@@ -1,31 +1,74 @@
-import {Link} from 'react-router'
-
+import { Link } from "react-router"; 
+import { useContext } from "react";
+import { ServicesContext } from "../context/servicesContext.jsx";
+import { AuthContext } from "../context/authContext.jsx";
 
 const NavBar = () => {
+  const [services] = useContext(ServicesContext);
+  const [isAuthenticated] = useContext(AuthContext);
+
   return (
-    <nav className="bg-red-100 py-4 shadow-lg">
-      <ul className="flex justify-center space-x-6">
-        <Link to="/">
-          <li className="bg-green-50 text-gray-800 px-4 py-2 rounded-full font-semibold transition transform hover:scale-110 hover:bg-red-300 shadow-md">
-            🏠 Home
-          </li>
+    <nav className="bg-pink-200 shadow-md py-4 px-6 rounded-b-3xl">
+      <div className="max-w-6xl mx-auto flex justify-between items-center">
+        <Link to="/" className="text-2xl font-extrabold text-gray-800">
+          🎭 EventApp
         </Link>
-        <Link to="/profile">
-          <li className="bg-green-50 text-gray-800 px-4 py-2 rounded-full font-semibold transition transform hover:scale-110 hover:bg-red-300 shadow-md">
-            👤 Profile
+
+        <p className="text-gray-700 font-semibold">
+          📅 {services.length} events disponibles
+        </p>
+
+        <ul className="flex space-x-6">
+          <li>
+            <Link
+              to="/"
+              className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
+            >
+              🏠 Home
+            </Link>
           </li>
-        </Link>
-        <Link to="/contact">
-          <li className="bg-green-50 text-gray-800 px-4 py-2 rounded-full font-semibold transition transform hover:scale-110 hover:bg-red-300 shadow-md">
-            📞 Contact
-          </li>
-        </Link>
-        <Link to="/register">
-          <li className="bg-green-50 text-gray-800 px-4 py-2 rounded-full font-semibold transition transform hover:scale-110 hover:bg-red-300 shadow-md">
-            📝 Register
-          </li>
-        </Link>
-      </ul>
+
+          {!isAuthenticated ? (
+            <>
+              <li>
+                <Link
+                  to="/register"
+                  className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
+                >
+                  ✨ Register
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/login"
+                  className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
+                >
+                  🔑 Login
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to="/profile"
+                  className="text-gray-800 font-semibold hover:text-green-500 transition duration-300"
+                >
+                  👤 Profile
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/logout"
+                  className="text-gray-800 font-semibold hover:text-red-500 transition duration-300"
+                >
+                  🚪 Logout
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
     </nav>
   );
 };
