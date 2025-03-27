@@ -4,9 +4,11 @@ import { ServicesContext } from "../context/servicesContext.jsx";
 import { AuthContext } from "../context/authContext.jsx";
 
 const NavBar = () => {
-  const [services] = useContext(ServicesContext);
-  const {isAuthenticated} = useContext(AuthContext);
+  const [services, setServices] = useContext(ServicesContext);
+  const {isAuthenticated, setIAutenticated, handleLogout} = useContext(AuthContext);
 
+
+  console.log(isAuthenticated)
     return (
     <nav className="bg-pink-200 shadow-md py-4 px-6 rounded-b-3xl">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -46,7 +48,7 @@ const NavBar = () => {
                 </Link>
             </li>
             <li>
-                <Link to="/logout" className="text-gray-800 font-semibold hover:text-red-500 transition duration-300">
+                <Link onClick={handleLogout} className="text-gray-800 font-semibold hover:text-red-500 transition duration-300">
                     🚪 Logout
                 </Link>
             </li>

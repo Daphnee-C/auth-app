@@ -1,12 +1,13 @@
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET
 
 export const verifyUser = async (req, res, next) => {
   // console.log(`Middleware to verify if the user is logged in`)
-    const token = req.headers.authorization?.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1]
+    // console.log(req.headers)
     if (!token) {
-        return res.status(405).json(`Access refused : token needed`);
+        return res.status(405).json(`Access refused : token needed`)
     }
     try {
         const decoded = await jwt.verify(token, JWT_SECRET)
