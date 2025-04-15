@@ -1,10 +1,16 @@
 import {Routes, Route} from 'react-router'
 import App from './App'
 import Profile from './pages/profile'
+import NavBar from './components/NavBar'
 import Register from './pages/register'
 import Login from './pages/login'
 import Error from './pages/error'
-import NavBar from './components/NavBar'
+import { useContext } from 'react'
+import { AuthContext } from './context/authContext'
+import { useNavigate } from 'react-router'
+import AddService from './pages/addService'
+import ServiceDetails from './pages/serviceDetails'
+import ProtectedRoute from './utils/ProtectedRoute'
 
 
 const MyRouter = () => {
@@ -12,13 +18,22 @@ const MyRouter = () => {
         <> 
 
         <NavBar />
-        
         <Routes>
             <Route path='/' element= {<App/>} /> 
-            <Route path='/profile' element= {<Profile/>} /> 
+            <Route path='/profile' element={ 
+                <ProtectedRoute>
+                    <Profile/>
+                </ProtectedRoute>
+            }/> 
             <Route path='/register' element= {<Register/>} /> 
             <Route path='/login' element= {<Login/>} />
-            <Route path='*' element= {<Error/>} />  
+            <Route path ='/addservice' element= { 
+                <ProtectedRoute>
+                    <AddService/>
+                </ProtectedRoute>
+            } />
+            <Route path ='/service/:id' element = {<ServiceDetails/>} />
+            <Route path='*' element= {<Error/>} /> 
         </Routes>
         </>
     )
