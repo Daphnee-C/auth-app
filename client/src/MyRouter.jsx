@@ -5,6 +5,8 @@ import NavBar from './components/NavBar'
 import Register from './pages/register'
 import Login from './pages/login'
 import Error from './pages/error'
+import Users from './pages/users'
+import UserDetails from './pages/userDetails'
 import { useContext } from 'react'
 import { AuthContext } from './context/authContext'
 import { useNavigate } from 'react-router'
@@ -32,6 +34,8 @@ const MyRouter = () => {
                     <AddService/>
                 </ProtectedRoute>
             } />
+            <Route path ='/users' element = {<Users/>} />
+            <Route path ='/user/:id' element = {<UserDetails/>} />
             <Route path ='/service/:id' element = {<ServiceDetails/>} />
             <Route path='*' element= {<Error/>} /> 
         </Routes>

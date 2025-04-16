@@ -12,7 +12,7 @@ const {isAuthenticated, handleLogout} = useContext(AuthContext)
         <div className="max-w-6xl mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-extrabold text-gray-800">EventApp </Link>
 
-        <p className="text-gray-700 font-semibold"> {services.length} events disponibles</p>
+        <p className="text-gray-700 font-semibold">{services.length} events disponibles</p>
 
         <ul className="flex space-x-6">
             <li>
@@ -36,6 +36,9 @@ const {isAuthenticated, handleLogout} = useContext(AuthContext)
                 </li>
                 <li>
                     <Link to="/profile" className="text-gray-800 font-semibold hover:text-white transition duration-300"> Profile</Link>
+                </li>
+                <li>
+                    <Link to="/users" className="text-gray-800 font-semibold hover:text-white transition duration-300"> Users</Link>
                 </li>
                 <li onClick = {handleLogout} className="cursor-pointer text-gray-800 font-semibold hover:text-red-500 transition duration-300"> 
                     Logout

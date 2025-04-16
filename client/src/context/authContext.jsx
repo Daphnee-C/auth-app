@@ -14,8 +14,8 @@ export const AuthController = ({children}) => {
     
     useEffect(() => {
         setLoading(true)
+        const token = localStorage.getItem('token')
         try {
-            const token = localStorage.getItem('token')
             if (token) {
                 setIsAuthenticated(true);
                 setTokenStorage(token);

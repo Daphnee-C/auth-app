@@ -41,7 +41,10 @@ const ServiceDetails = () => {
         <div className="max-w-xl bg-gray-100 rounded-3xl shadow-lg border border-gray-200 p-6">
 
         <div className="w-full h-52 bg-gray-300 rounded-2xl mb-6 flex items-center justify-center text-gray-500 text-sm">
-            Image du service
+        <img className="w-full h-52 bg-gray-300 rounded-2xl mb-6 flex items-center justify-center text-gray-500 text-sm"
+            src={service.image ? `http://localhost:8000${service.image}` : `https://www.okvoyage.com/wp-content/uploads/2022/11/paysages-de-montagne.jpg` }
+            alt="Service image"  
+        />  
         </div>  
         <h2 className="text-2xl font-bold text-gray-800 mb-4">{service.title}</h2>
         <p className="text-gray-600 mb-2">Category: {service.category}</p>
