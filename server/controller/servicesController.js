@@ -30,11 +30,20 @@ export const getServiceByID = async (req, res) => {
 }
 
 export const createService = async (req, res) => {
-    console.log(req)
+    const {title, description, price, category, address, availability} = req.body
     try {
-        const newService = await Service.create(req.body)
+        const newService = await Service.create({
+            title, 
+            description,
+            price,
+            category,
+            address,
+            availability,
+            userID : req.user.id,
+            image : '/public/images/' + req.file.filename
+        })
         if(newService){
-            return res.status(201).json(`Your event has been created`)
+            return res.status(201).json({message : `Your event has been created`, newService})
         }
     } catch (err) {
         console.log(err);

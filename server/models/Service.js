@@ -17,7 +17,7 @@ const serviceSchema = new Schema({
         type : String, 
         required : true,
     },
-    adress: {
+    address: {
         type : String, 
         required : true,
     },
@@ -28,6 +28,9 @@ const serviceSchema = new Schema({
     userID: {
         type : mongoose.Schema.Types.ObjectId, 
         ref: 'User'
+    },
+    image :  {
+        type : String,
     }
 })
 
