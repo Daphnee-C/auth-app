@@ -42,15 +42,20 @@ const ServiceDetails = () => {
 
         <div className="w-full h-52 bg-gray-300 rounded-2xl mb-6 flex items-center justify-center text-gray-500 text-sm">
         <img className="w-full h-52 bg-gray-300 rounded-2xl mb-6 flex items-center justify-center text-gray-500 text-sm"
-            src={service.image ? `http://localhost:8000${service.image}` : `https://www.okvoyage.com/wp-content/uploads/2022/11/paysages-de-montagne.jpg` }
+            src={service.image ? `http://localhost:8000/${service.image}` : `http://localhost:8000/public/images/suunset.jpg` }
             alt="Service image"  
         />  
         </div>  
         <h2 className="text-2xl font-bold text-gray-800 mb-4">{service.title}</h2>
         <p className="text-gray-600 mb-2">Category: {service.category}</p>
         <p className="text-gray-700 mb-3">Description: {service.description}</p>
+
+        {service.userID && (
+           <Link to={`/user/${service.userID._id}`}> <p className="text-gray-600 font-bold mb-2">Organiser: {service.userID.first_name}</p> </Link> 
+        )}
+        
         <p className="text-green-600 font-bold mb-2">Price: {service.price}</p>
-        <p className="text-gray-500 mb-4">Address: {service.adress}</p>
+        <p className="text-gray-500 mb-4">Address: {service.address}</p>
 
         <button className="w-full bg-pink-100 text-gray-800 font-bold py-2 rounded-xl shadow-md hover:bg-pink-300 hover:text-white transition duration-300">
             Book Now

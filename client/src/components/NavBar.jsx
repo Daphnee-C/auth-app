@@ -4,7 +4,7 @@ import { ServicesContext } from "../context/servicesContext.jsx"
 import { AuthContext } from "../context/authContext.jsx"
 
 const NavBar = () => {
-const [services] = useContext(ServicesContext)
+const {services} = useContext(ServicesContext)
 const {isAuthenticated, handleLogout} = useContext(AuthContext)
 
     return (

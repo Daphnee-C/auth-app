@@ -9,10 +9,12 @@ import { Link } from 'react-router'
 function App() {
 
 let navigate = useNavigate()
-const [services, setServices] = useContext(ServicesContext)
+const {services, fetchServices} = useContext(ServicesContext)
 const {isAuthenticated} = useContext(AuthContext)
 
-
+useEffect(() => {
+  fetchServices()
+}, [services]) 
 
   return (
     <>
@@ -28,7 +30,7 @@ const {isAuthenticated} = useContext(AuthContext)
               <p className="text-gray-600 mb-2">📌 <span className="font-semibold">Category:</span>{service.category}</p>
               <p className="text-gray-700 mb-3">📖 <span className="font-semibold">Description:</span>{service.description}</p>
               <p className="text-green-600 font-bold mb-2">💰 Price: {service.price}</p>
-              <p className="text-gray-500">📍 Address: {service.adress}</p>
+              <p className="text-gray-500">📍 Address: {service.address}</p>
 
               <button className="w-full bg-pink-100 text-gray-800 font-bold py-2 rounded-xl shadow-md hover:bg-pink-300 hover:text-white transition duration-300">
                 Book Now

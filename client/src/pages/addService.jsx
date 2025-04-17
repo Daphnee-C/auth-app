@@ -3,11 +3,12 @@ import axios from "axios"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContext"
 import { useNavigate } from "react-router"
-
+import { ServicesContext } from "../context/servicesContext"
 
 const AddService = () => {
     let navigate = useNavigate()
     const {tokenStorage} = useContext(AuthContext)
+    const {fetchServices} = useContext(ServicesContext)
 
     const [serviceInfo, setServicesInfo] = useState({
         title: '',
@@ -16,6 +17,7 @@ const AddService = () => {
         category: '', 
         address: '', 
         availability: null,
+        image: null
     })
     const [image, setImage] = useState(null);
 
@@ -36,8 +38,9 @@ const AddService = () => {
             try {
                 const response = await axios.post(`http://localhost:8000/api/services`, formData, {
                     headers: {
+                        'Content-Type': 'multipart/form-data',
                         'Authorization' : `Bearer ${tokenStorage}`,
-                        'Content-Type': 'multipart/form-data'
+                        
                     }
                 })
                 if(response.status === 201){
@@ -47,6 +50,9 @@ const AddService = () => {
             } 
             catch (err) {
                 console.log(err)
+            }
+            finally{
+                fetchServices()
             }
         
     }
@@ -132,7 +138,7 @@ const AddService = () => {
                         name="image"
                         type="file"
                         className="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 border border-gray-300 placeholder:text-gray-400"
-                        onChange={(e) => setImage(e.target.files[0])}
+                        onChange={e => setImage({...serviceInfo, image: e.target.files[0]})}
                     />
                     </div>
 
