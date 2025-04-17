@@ -39,8 +39,8 @@ export const createService = async (req, res) => {
             category,
             address,
             availability,
-            userID : req.user.id,
-            image : '/public/images/' + req.file.filename
+            image : req.file ? '/public/images/' + req.file.filename : '/public/images/suunset.jpg',
+            userID : req.user.id
         })
         if(newService){
             return res.status(201).json({message : `Your event has been created`, newService})
@@ -48,5 +48,22 @@ export const createService = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json(`Internal server error`, err)
+    }
+}
+
+
+export const deleteServiceByID = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedService = await Service.findByIdAndDelete(id)
+        if (!deletedService) {
+            return res.status(404).json(`Service not found`)
+        }
+        return res.status(203).json({ message: "Service successfully deleted" })
+    } 
+    
+    catch (err) {
+        console.log(err);
+        return res.status(500).json(`Internal server error`)
     }
 }

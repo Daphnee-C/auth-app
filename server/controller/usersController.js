@@ -31,7 +31,6 @@ export const getAllUsers  = async (req, res) => {
 
 }
 
-
 export const getUserByID  = async (req, res) => {
     const {id} = req.params
     try {

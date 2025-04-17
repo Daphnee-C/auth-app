@@ -1,18 +1,17 @@
+import User from "../models/User.js"
 import jwt from "jsonwebtoken"
 
-const JWT_SECRET = process.env.JWT_SECRET
 
-export const verifyUser = async (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1]
-    if (!token) {
-        return res.status(405).json(`Access refused : token needed`)
-    }
+export const checkAdmin = async (req, res, next) => {
+    const {id} = req.user
     try {
-        const decoded = await jwt.verify(token, JWT_SECRET)
-        req.user = decoded
+        const user = await User.findById(id)
+        if(user.role!= 'admin'){
+            return res.status(405).json(`access refused admin only`)
+        }
         next()
-    }
-    catch (error) {
+    } 
+   catch (error) {
         if (error instanceof jwt.JsonWebTokenError) {
             return res.status(403).json({ error: "Invalid token : incorrect signature" })
         }
@@ -21,4 +20,7 @@ export const verifyUser = async (req, res, next) => {
         }
         return res.status(500).json({ error: "Error while verifating the token" })
     }
+
 }
+
+

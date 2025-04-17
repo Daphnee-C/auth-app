@@ -25,12 +25,13 @@ const serviceSchema = new Schema({
         type : Boolean, 
         required : true,
     },
+    image :  {
+        type : String
+    },
     userID: {
         type : mongoose.Schema.Types.ObjectId, 
-        ref: 'User'
-    },
-    image :  {
-        type : String,
+        ref: 'User',
+        required : true,
     }
 })
 

@@ -20,7 +20,12 @@ const userSchema = new Schema({
     },
     image :  {
         type : String,
-    }
+    }, 
+    role:  {
+        type : String,
+        enum : ['admin', 'user'],
+        default : 'user'
+    }, 
 })
 
 export default mongoose.model('User', userSchema)
